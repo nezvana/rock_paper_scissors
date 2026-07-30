@@ -6,9 +6,39 @@
     <title>Rock Paper Scissors</title>
 </head>
 <body>
-    <!-- Leeres HTML-Dokument -->
+    <h2>Rock Paper Scissors Game</h2>
+    <p>to play in console - please open the browser's developer tools</p>
     <script>
-        // Platz für JavaScript
+        function getComputerChoice() {
+            const choices = ['rock', 'paper', 'scissors'];
+            const randomIndex = Math.floor(Math.random() * choices.length);
+            return choices[randomIndex];
+        }
+        
+        function GetUserChoice() {
+            const userChoice = prompt("Please enter rock, paper, or scissors:").toLowerCase();
+            if (['rock', 'paper', 'scissors'].includes(userChoice)) {
+                return userChoice;
+            } else {
+                console.log("Invalid choice. Please try again.");
+                return GetUserChoice();
+            }
+        }
+        function determineWinner(userChoice, computerChoice) {
+            if (userChoice === computerChoice) {
+                return "It's a tie!";
+            }
+            if (
+                (userChoice === 'rock' && computerChoice === 'scissors') ||
+                (userChoice === 'paper' && computerChoice === 'rock') ||
+                (userChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                return "You win!";
+            } else {
+                return "Computer wins!";
+            }
+        }
+        
     </script>
 </body>
 </html>
