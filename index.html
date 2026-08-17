@@ -1,58 +1,90 @@
-<!doctype html>
-<html lang="de">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Rock Paper Scissors</title>
+    <title>Rock, Paper, Scissors</title>
 </head>
 <body>
-    <h2>Rock Paper Scissors Game</h2>
-    <p>to play in console - please open the browser's developer tools</p>
+    <h1>Rock, Paper, Scissors - the Game</h1>
+    <p>please open the dev console to play</p> 
+    <p id="scoreComp"> </p>
+    <p id="scoreHuman"> </p>   
     <script>
-        const rock = "rock";
-            const paper = "paper";
-            const scissors = "scissors";
 
-        function getCompChoice( ) {
-           
-            return [rock, paper, scissors][Math.floor(Math.random() * 3)];
-            
-        }
-        /*console.log(getCompChoice());*/
+function getCompChoice(){
+let randomNumber = Math.floor(Math.random() * 3);
+if (randomNumber === 0) {
+	return "rock";
+	}
+	else if (randomNumber === 1) {
+	return "paper";	
+		}
+	else {
+	return "scissors";	
+		}
+}
 
-        function getHumanChoice() {
-            const choice = prompt("Please choose rock, paper or scissors");
-            if (choice === rock || choice === paper || choice === scissors) {
-                return choice;
-            } else {
-                alert("Invalid choice. Please choose rock, paper or scissors.");
-                return getHumanChoice();
-            }
+console.log(getCompChoice());
 
-        }
 
-        var humanChoice = getHumanChoice(0);
-        var compChoice = getCompChoice(0);
-        
-        function playRound(humanChoice, computerChoice) {
-   
-  if (humanChoice === computerChoice) {
-    console.log("It's a tie!");
-  } else if (
-    (humanChoice === rock && computerChoice === scissors) ||
-    (humanChoice === paper && computerChoice === rock) ||
-    (humanChoice === scissors && computerChoice === paper)
-  ) {
-    console.log(`You win! ${humanChoice} beats ${computerChoice}.`);
-  } else {
-    console.log(`You lose! ${computerChoice} beats ${humanChoice}.`);
+function getHumanChoice(){
+    return prompt("Please enter your choice").toLowerCase();
+	}
+
+	
+let compScore = 0
+let humanScore = 0
+	
+function playRound(compChoice, humanChoice){
+	 if (compChoice === "rock" && humanChoice === "rock" || 
+        compChoice === "paper" && humanChoice === "paper" || 
+        compChoice === "scissors" && humanChoice === "scissors")
+	{
+		alert("You are even!");
+		
+        document.getElementById("scoreComp").innerHTML = "Computer Score: " + compScore;
+        document.getElementById("scoreHuman").innerHTML = "Human Score: " + humanScore;
+	}
+	else if (compChoice === "rock" && humanChoice === "paper" || 
+        compChoice === "paper" && humanChoice === "scissors" || 
+        compChoice === "scissors" && humanChoice === "rock")
+    {
+		alert("You win!");
+		/*compScore = 0*/
+		humanScore ++
+        document.getElementById("scoreComp").innerHTML = "Computer Score: " + compScore;
+        document.getElementById("scoreHuman").innerHTML = "Human Score: " + humanScore;    
+	}
+	else 
+    {
+		alert("You lose!");
+		compScore ++
+		/*humanScore = 0*/
+        document.getElementById("scoreComp").innerHTML = "Computer Score: " + compScore;
+        document.getElementById("scoreHuman").innerHTML = "Human Score: " + humanScore;
+	}
+	}
+	
+function playGame(){	
+
+
+while (compScore < 5 && humanScore < 5){
+    const humanSelection = getHumanChoice();
+const computerSelection = getCompChoice();
+    playRound(computerSelection, humanSelection);
 }
 
 
-        }
-
-        playRound(humanChoice, compChoice);
+	if (compScore === 5){
+		alert ("Game over");
+	}
+	else if (humanScore === 5){
+		alert ("You win the entire game");
+		}
         
+}
+
+playGame();
+
     </script>
 </body>
 </html>
